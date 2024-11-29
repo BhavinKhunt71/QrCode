@@ -24,21 +24,21 @@ export default function Home() {
   // const [permission, requestPermission] = useCameraPermissions();
   const router = useRouter(); // Use Expo Router
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", (nextAppState) => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === "active"
-      ) {
-        qrLock.current = false;
-      }
-      appState.current = nextAppState;
-    });
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener("change", (nextAppState) => {
+  //     if (
+  //       appState.current.match(/inactive|background/) &&
+  //       nextAppState === "active"
+  //     ) {
+  //       qrLock.current = false;
+  //     }
+  //     appState.current = nextAppState;
+  //   });
 
-    return () => {
-      subscription.remove();
-    };
-  }, []);
+  //   return () => {
+  //     subscription.remove();
+  //   };
+  // }, []);
 
   const handleTorchToggle = () => {
     setTorchEnabled((prev) => !prev);
@@ -53,14 +53,14 @@ export default function Home() {
   };
 
   const handleBarcodeScanned = (data : any) => {
-    console.log(data);
-    if (!qrLock.current) {
-      qrLock.current = true;
+    // console.log(data);
+    // if (!qrLock.current) {
+    //   qrLock.current = true;
       router.push({
         pathname: "/scanner",
         params: { rawData : data.raw, data : data.data }, // Pass the scanned data
       });
-    }
+    // }
   };
 
   return (
