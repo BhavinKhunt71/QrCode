@@ -34,12 +34,12 @@ const parseDate = (dateStr) => {
 
 export default function QrDataDisplay() {
   const [data, setData] = useState();
-  const { rawData,realData } = useLocalSearchParams();
+  const { rawData, realData } = useLocalSearchParams();
   const navigation = useNavigation();
   const colorScheme = useColorScheme();
   let dData;
 
-
+  const currentDate = (new Date()).toLocaleString();
   const parseQRCodeData = (data) => {
     if (data.startsWith("http://") || data.startsWith("https://")) {
       dData = { Url: data };
@@ -138,14 +138,12 @@ export default function QrDataDisplay() {
         }
         break;
       case "copy":
-        Clipboard.setString(
-          content || password || title || email || phone || message || ""
-        );
+        Clipboard.setString(realData || "");
         Alert.alert("Copied", "Content copied to clipboard.");
         break;
       case "share":
         await Share.share({
-          message: realData
+          message: realData || "",
         });
         break;
       case "connectWifi":
@@ -235,6 +233,14 @@ export default function QrDataDisplay() {
               {value}
             </Text>
           ))}
+          <Text
+            style={[
+              styles.dateText,
+              { color: colorScheme === "dark" ? "#d1d1d1" : "#161716"},
+            ]}
+          >
+            {currentDate}
+          </Text>
         </View>
       );
     }
@@ -369,9 +375,13 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     marginVertical: 2,
     // textAlign: "center",
+  },
+  dateText:{
+    fontSize : 12,
+    marginVertical: 4,
   },
   buttonRow: {
     flexDirection: "row",

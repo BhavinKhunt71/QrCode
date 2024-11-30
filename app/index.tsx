@@ -1,6 +1,6 @@
 import Slider from "@react-native-community/slider";
 import { CameraView ,CameraType, useCameraPermissions} from "expo-camera";
-import { Stack } from "expo-router";
+import { Stack, useFocusEffect } from "expo-router";
 import {
   AppState,
   Platform,
@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Overlay } from "./Overlay";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router"; // For navigation
 
@@ -22,7 +22,13 @@ export default function Home() {
   const [zoomValue, setZoomValue] = useState(0);
   const [cameraFacing, setCameraFacing] = useState<CameraType>("back");
   const [firstRender, setFirstRender] = useState(true);
-  const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => {
+      setFirstRender(true);
+    }, [setFirstRender])
+  );
+
   // const [permission, requestPermission] = useCameraPermissions();
   const router = useRouter(); // Use Expo Router
 
@@ -73,7 +79,7 @@ export default function Home() {
           headerShown: false,
         }}
       />
-      {Platform.OS === "ios" ? <StatusBar hidden /> : <StatusBar backgroundColor={"#000"} />}
+      {Platform.OS === "ios" ? <StatusBar hidden /> : <StatusBar backgroundColor={"#000"}  barStyle={"light-content"}/>}
       <CameraView
         style={StyleSheet.absoluteFillObject}
         facing={cameraFacing}

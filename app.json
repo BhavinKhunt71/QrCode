@@ -25,7 +25,9 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
         "READ_CALENDAR",
-        "WRITE_CALENDAR"
+        "WRITE_CALENDAR",
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
       ],
       "package": "com.bhavinkhunt.QrCode"
     },
@@ -59,6 +61,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6bebab97-febd-4f5b-9d86-e4a9812b7351"
+      }
     }
   }
 }
