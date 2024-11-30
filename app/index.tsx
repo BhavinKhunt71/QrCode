@@ -21,6 +21,8 @@ export default function Home() {
   const [torchEnabled, setTorchEnabled] = useState(false);
   const [zoomValue, setZoomValue] = useState(0);
   const [cameraFacing, setCameraFacing] = useState<CameraType>("back");
+  const [firstRender, setFirstRender] = useState(true);
+  const navigation = useNavigation();
   // const [permission, requestPermission] = useCameraPermissions();
   const router = useRouter(); // Use Expo Router
 
@@ -52,15 +54,15 @@ export default function Home() {
     setZoomValue(value);
   };
 
-  const handleBarcodeScanned = (data : any) => {
+  const handleBarcodeScanned = (data: any) => {
     // console.log(data);
-    // if (!qrLock.current) {
-    //   qrLock.current = true;
+    if (firstRender) {
+      setFirstRender(false);
       router.push({
         pathname: "/scanner",
-        params: { rawData : data.raw, data : data.data }, // Pass the scanned data
+        params: { rawData: data.raw, realData: data.data }, // Pass the scanned data
       });
-    // }
+    }
   };
 
   return (
