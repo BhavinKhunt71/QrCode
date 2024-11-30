@@ -1,5 +1,4 @@
-import Slider from "@react-native-community/slider";
-import { CameraView ,CameraType, useCameraPermissions} from "expo-camera";
+import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import { Stack, useFocusEffect } from "expo-router";
 import {
   AppState,
@@ -29,7 +28,12 @@ export default function Home() {
     }, [setFirstRender])
   );
 
-  // const [permission, requestPermission] = useCameraPermissions();
+  const [permission, requestPermission] = useCameraPermissions();
+  useEffect(() => {
+    if (!permission?.granted) {
+      requestPermission();
+    }
+  }, []);
   const router = useRouter(); // Use Expo Router
 
   // useEffect(() => {
@@ -56,7 +60,7 @@ export default function Home() {
     setCameraFacing((prev) => (prev === "back" ? "front" : "back"));
   };
 
-  const handleZoomValue = (value : any) => {
+  const handleZoomValue = (value: any) => {
     setZoomValue(value);
   };
 
@@ -79,7 +83,11 @@ export default function Home() {
           headerShown: false,
         }}
       />
-      {Platform.OS === "ios" ? <StatusBar hidden /> : <StatusBar backgroundColor={"#000"}  barStyle={"light-content"}/>}
+      {Platform.OS === "ios" ? (
+        <StatusBar hidden />
+      ) : (
+        <StatusBar backgroundColor={"#000"} barStyle={"light-content"} />
+      )}
       <CameraView
         style={StyleSheet.absoluteFillObject}
         facing={cameraFacing}
@@ -90,14 +98,20 @@ export default function Home() {
       <Overlay />
       <View style={styles.controlsContainer}>
         <View style={styles.iconControls}>
-          <TouchableOpacity style={styles.iconButton} onPress={handleTorchToggle}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={handleTorchToggle}
+          >
             <Ionicons
               name={torchEnabled ? "flash" : "flash-off"}
               size={24}
               color="white"
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton} onPress={handleFlipCamera}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={handleFlipCamera}
+          >
             <Ionicons name="camera-reverse-outline" size={24} color="white" />
           </TouchableOpacity>
         </View>
