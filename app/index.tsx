@@ -15,10 +15,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router"; // For navigation
 
 export default function Home() {
-  const qrLock = useRef(false);
-  const appState = useRef(AppState.currentState);
+  // const qrLock = useRef(false);
+  // const appState = useRef(AppState.currentState);
   const [torchEnabled, setTorchEnabled] = useState(false);
-  const [zoomValue, setZoomValue] = useState(0);
+  // const [zoomValue, setZoomValue] = useState(0);
   const [cameraFacing, setCameraFacing] = useState<CameraType>("back");
   const [firstRender, setFirstRender] = useState(true);
 
@@ -60,9 +60,9 @@ export default function Home() {
     setCameraFacing((prev) => (prev === "back" ? "front" : "back"));
   };
 
-  const handleZoomValue = (value: any) => {
-    setZoomValue(value);
-  };
+  // const handleZoomValue = (value: any) => {
+  //   setZoomValue(value);
+  // };
 
   const handleBarcodeScanned = (data: any) => {
     // console.log(data);
@@ -91,7 +91,7 @@ export default function Home() {
       <CameraView
         style={StyleSheet.absoluteFillObject}
         facing={cameraFacing}
-        zoom={zoomValue}
+        // zoom={zoomValue}
         enableTorch={torchEnabled}
         onBarcodeScanned={handleBarcodeScanned} // Navigate on scan
       />
