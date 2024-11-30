@@ -24,10 +24,7 @@
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
-        "READ_CALENDAR",
-        "WRITE_CALENDAR",
-        "android.permission.READ_CALENDAR",
-        "android.permission.WRITE_CALENDAR"
+        "android.permission.ACCESS_FINE_LOCATION"
       ],
       "package": "com.bhavinkhunt.QrCode"
     },
