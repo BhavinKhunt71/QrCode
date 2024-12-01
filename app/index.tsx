@@ -13,6 +13,7 @@ import { Overlay } from "./Overlay";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router"; // For navigation
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Home() {
   // const qrLock = useRef(false);
@@ -21,7 +22,7 @@ export default function Home() {
   // const [zoomValue, setZoomValue] = useState(0);
   const [cameraFacing, setCameraFacing] = useState<CameraType>("back");
   const [firstRender, setFirstRender] = useState(true);
-
+  const { top } = useSafeAreaInsets();
   useFocusEffect(
     useCallback(() => {
       setFirstRender(true);
@@ -76,10 +77,10 @@ export default function Home() {
   };
 
   return (
-    <SafeAreaView style={StyleSheet.absoluteFillObject}>
+    <SafeAreaView style={[StyleSheet.absoluteFillObject,{top : top}]}>
       <Stack.Screen
         options={{
-          title: "QR Scanner",
+          title: "",
           headerShown: false,
         }}
       />
